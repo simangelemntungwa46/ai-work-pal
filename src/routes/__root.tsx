@@ -86,7 +86,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "Generate professional emails, summarize meetings, and plan your day with AI.",
       },
-      { property: "og:title", content: "Lumina — AI Workplace Productivity" },
+      { property: "og:title", content: "Lumina — AI Workplace Productivity Assistant" },
       {
         property: "og:description",
         content:
@@ -94,6 +94,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Lumina — AI Workplace Productivity Assistant" },
+      { name: "description", content: "AI Work Pal automates professional tasks with AI, generating emails, summarizing meetings, and planning work." },
+      { property: "og:description", content: "AI Work Pal automates professional tasks with AI, generating emails, summarizing meetings, and planning work." },
+      { name: "twitter:description", content: "AI Work Pal automates professional tasks with AI, generating emails, summarizing meetings, and planning work." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e33bcd5f-74cc-4904-ae52-59917cb237b7/id-preview-5773d341--925062f9-baca-4291-a0a9-067f99f35bf9.lovable.app-1781535319860.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e33bcd5f-74cc-4904-ae52-59917cb237b7/id-preview-5773d341--925062f9-baca-4291-a0a9-067f99f35bf9.lovable.app-1781535319860.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
