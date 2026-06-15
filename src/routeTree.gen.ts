@@ -13,6 +13,9 @@ import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as MeetingsRouteImport } from './routes/meetings'
 import { Route as EmailRouteImport } from './routes/email'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as HistoryTaskIdRouteImport } from './routes/history.task.$id'
+import { Route as HistoryMeetingIdRouteImport } from './routes/history.meeting.$id'
+import { Route as HistoryEmailIdRouteImport } from './routes/history.email.$id'
 
 const TasksRoute = TasksRouteImport.update({
   id: '/tasks',
@@ -34,18 +37,39 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HistoryTaskIdRoute = HistoryTaskIdRouteImport.update({
+  id: '/history/task/$id',
+  path: '/history/task/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HistoryMeetingIdRoute = HistoryMeetingIdRouteImport.update({
+  id: '/history/meeting/$id',
+  path: '/history/meeting/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HistoryEmailIdRoute = HistoryEmailIdRouteImport.update({
+  id: '/history/email/$id',
+  path: '/history/email/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/email': typeof EmailRoute
   '/meetings': typeof MeetingsRoute
   '/tasks': typeof TasksRoute
+  '/history/email/$id': typeof HistoryEmailIdRoute
+  '/history/meeting/$id': typeof HistoryMeetingIdRoute
+  '/history/task/$id': typeof HistoryTaskIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/email': typeof EmailRoute
   '/meetings': typeof MeetingsRoute
   '/tasks': typeof TasksRoute
+  '/history/email/$id': typeof HistoryEmailIdRoute
+  '/history/meeting/$id': typeof HistoryMeetingIdRoute
+  '/history/task/$id': typeof HistoryTaskIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +77,38 @@ export interface FileRoutesById {
   '/email': typeof EmailRoute
   '/meetings': typeof MeetingsRoute
   '/tasks': typeof TasksRoute
+  '/history/email/$id': typeof HistoryEmailIdRoute
+  '/history/meeting/$id': typeof HistoryMeetingIdRoute
+  '/history/task/$id': typeof HistoryTaskIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/email' | '/meetings' | '/tasks'
+  fullPaths:
+    | '/'
+    | '/email'
+    | '/meetings'
+    | '/tasks'
+    | '/history/email/$id'
+    | '/history/meeting/$id'
+    | '/history/task/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/email' | '/meetings' | '/tasks'
-  id: '__root__' | '/' | '/email' | '/meetings' | '/tasks'
+  to:
+    | '/'
+    | '/email'
+    | '/meetings'
+    | '/tasks'
+    | '/history/email/$id'
+    | '/history/meeting/$id'
+    | '/history/task/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/email'
+    | '/meetings'
+    | '/tasks'
+    | '/history/email/$id'
+    | '/history/meeting/$id'
+    | '/history/task/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +116,9 @@ export interface RootRouteChildren {
   EmailRoute: typeof EmailRoute
   MeetingsRoute: typeof MeetingsRoute
   TasksRoute: typeof TasksRoute
+  HistoryEmailIdRoute: typeof HistoryEmailIdRoute
+  HistoryMeetingIdRoute: typeof HistoryMeetingIdRoute
+  HistoryTaskIdRoute: typeof HistoryTaskIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +151,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/history/task/$id': {
+      id: '/history/task/$id'
+      path: '/history/task/$id'
+      fullPath: '/history/task/$id'
+      preLoaderRoute: typeof HistoryTaskIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/history/meeting/$id': {
+      id: '/history/meeting/$id'
+      path: '/history/meeting/$id'
+      fullPath: '/history/meeting/$id'
+      preLoaderRoute: typeof HistoryMeetingIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/history/email/$id': {
+      id: '/history/email/$id'
+      path: '/history/email/$id'
+      fullPath: '/history/email/$id'
+      preLoaderRoute: typeof HistoryEmailIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,7 +180,20 @@ const rootRouteChildren: RootRouteChildren = {
   EmailRoute: EmailRoute,
   MeetingsRoute: MeetingsRoute,
   TasksRoute: TasksRoute,
+  HistoryEmailIdRoute: HistoryEmailIdRoute,
+  HistoryMeetingIdRoute: HistoryMeetingIdRoute,
+  HistoryTaskIdRoute: HistoryTaskIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
