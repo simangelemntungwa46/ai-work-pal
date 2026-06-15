@@ -14,7 +14,102 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      emails: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          instructions: string | null
+          purpose: string
+          recipient: string
+          subject: string
+          tone: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          instructions?: string | null
+          purpose: string
+          recipient: string
+          subject: string
+          tone: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          instructions?: string | null
+          purpose?: string
+          recipient?: string
+          subject?: string
+          tone?: string
+        }
+        Relationships: []
+      }
+      meeting_summaries: {
+        Row: {
+          action_items: Json
+          created_at: string
+          deadlines: Json
+          decisions: Json
+          id: string
+          notes: string
+          summary: string
+        }
+        Insert: {
+          action_items?: Json
+          created_at?: string
+          deadlines?: Json
+          decisions?: Json
+          id?: string
+          notes: string
+          summary: string
+        }
+        Update: {
+          action_items?: Json
+          created_at?: string
+          deadlines?: Json
+          decisions?: Json
+          id?: string
+          notes?: string
+          summary?: string
+        }
+        Relationships: []
+      }
+      task_plans: {
+        Row: {
+          created_at: string
+          hours: number
+          id: string
+          prioritized: Json
+          priority: string
+          schedule: Json
+          tasks: string
+          tips: Json
+        }
+        Insert: {
+          created_at?: string
+          hours: number
+          id?: string
+          prioritized?: Json
+          priority: string
+          schedule?: Json
+          tasks: string
+          tips?: Json
+        }
+        Update: {
+          created_at?: string
+          hours?: number
+          id?: string
+          prioritized?: Json
+          priority?: string
+          schedule?: Json
+          tasks?: string
+          tips?: Json
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
