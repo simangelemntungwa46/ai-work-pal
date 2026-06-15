@@ -56,7 +56,7 @@ function EmailPage() {
       tone: "Formal" | "Friendly" | "Persuasive";
       instructions: string;
     }) => generateFn({ data: input }),
-    onSuccess: (row) => {
+    onSuccess: (row: any) => {
       if (!row) return;
       setSubject(row.subject);
       setBody(row.body);
