@@ -35,8 +35,8 @@ export const Route = createFileRoute("/email")({
 });
 
 function EmailPage() {
-  const generateFn = useSfn(generateEmail);
-  const listFn = useSfn(listEmails);
+  const generateFn = useServerFn(generateEmail);
+  const listFn = useServerFn(listEmails);
   const queryClient = useQueryClient();
 
   const [purpose, setPurpose] = useState("");
