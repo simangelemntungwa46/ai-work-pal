@@ -216,7 +216,7 @@ function EmailPage() {
             Recent drafts
           </h2>
           <div className="divide-y divide-border overflow-hidden rounded-xl border border-border bg-card">
-            {recent.data.map((row) => (
+            {recent.data.map((row: any) => (
               <Link
                 key={row.id}
                 to="/history/email/$id"
