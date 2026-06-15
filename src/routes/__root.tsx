@@ -129,8 +129,31 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <AppLayout>
+        <Outlet />
+      </AppLayout>
+      <Toaster />
     </QueryClientProvider>
+  );
+}
+
+function AppLayout({ children }: { children: ReactNode }) {
+  return (
+    <SidebarProvider>
+      <div className="flex min-h-screen w-full bg-background">
+        <AppSidebar />
+        <div className="flex min-h-screen flex-1 flex-col">
+          <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border bg-background/80 px-4 backdrop-blur-md">
+            <SidebarTrigger />
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span className="font-display font-semibold text-foreground">Lumina</span>
+              <span className="text-muted-foreground/60">/</span>
+              <span>AI Workspace</span>
+            </div>
+          </header>
+          <main className="flex-1">{children}</main>
+        </div>
+      </div>
+    </SidebarProvider>
   );
 }
